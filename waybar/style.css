@@ -1,0 +1,35 @@
+* {
+  font-family: "CodeNewRoman Nerd Font Propo";
+  font-size: 14px;
+  padding: 1;
+}
+window#waybar {
+  background-color: rgba(43, 48, 59, 1);
+  color: #ffffff;
+  transition-property: background-color;
+  transition-duration: .5s;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+#workspaces button.focused {
+    background-color: #64727D;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#pulsaudio,
+#clock,
+#custom-notification,
+#custom-poweroff,
+#tray {
+    padding: 0 5px;
+    margin: 0 0px;
+    color: #ffffff;
+}

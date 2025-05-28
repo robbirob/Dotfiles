@@ -1,0 +1,109 @@
+{
+    "layer": "top",
+    "spacing": 0,
+    "height": 0,
+    "margin-top": 0,
+    "margin-right": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "modules-left": [
+        "sway/workspaces"
+    ],
+    "modules-center": [],
+    "modules-right": [
+        "tray",
+        "custom/notification",
+        "pulseaudio",
+        "clock",
+        "custom/poweroff"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "tooltip": false
+    },
+    "tray": {
+        "spacing": 10,
+        "tooltip": false
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip": false
+    },
+    "cpu": {
+        "format": "cpu {usage}%",
+        "interval": 2,
+        "states": {
+            "critical": 90
+        }
+    },
+    "memory": {
+        "format": "mem {percentage}%",
+        "interval": 2,
+        "states": {
+            "critical": 80
+        }
+    },
+    "battery": {
+        "format": "bat {capacity}%",
+        "interval": 5,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "tooltip": false
+    },
+    "network": {
+        "format-wifi": "wifi {bandwidthDownBits}",
+        "format-ethernet": "enth {bandwidthDownBits}",
+        "format-disconnected": "no network",
+        "interval": 5,
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "scroll-step": 1,
+        "format": "{icon} {volume}%{format_source}",
+        "format-bluetooth": "{icon} {volume}%{format_source}",
+        "format-bluetooth-muted": " {icon}{format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "  {volume}%",
+        "format-source-muted": " ",
+        "format-icons": {
+            "headphone": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    "custom/poweroff": {
+        "tooltip": false,
+        "format": "",
+        "on-click": "bash $HOME/.config/waybar/scripts/poweroff.sh"
+    }
+}
