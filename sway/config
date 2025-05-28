@@ -217,6 +217,7 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym --locked XF86RotateWindows exec swaymsg output LVDS-1 transform 90 clockwise
     # Special key to take a screenshot with grim
     bindsym Print exec grim
 
