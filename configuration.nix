@@ -2,13 +2,18 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -25,9 +30,12 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
-  
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
   security.sudo.extraConfig = ''
@@ -40,49 +48,49 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "de_DE.UTF-8";
   console = {
-  #   font = "Lat2-Terminus16";
+    #   font = "Lat2-Terminus16";
     keyMap = "de-latin1-nodeadkeys";
-  #   useXkbConfig = true; # use xkb.options in tty.
+    #   useXkbConfig = true; # use xkb.options in tty.
   };
 
   hardware.graphics.enable = true;
   services.libinput.enable = true;
   programs.sway.enable = true;
   services.pipewire = {
-	enable= true;
-	pulse.enable = true;
+    enable = true;
+    pulse.enable = true;
   };
   services.greetd = {
-	enable = true;
-	settings = {
-		default_session = {
-			command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-			user = "greeter";
-		};
-	};
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
   };
-  
+
   environment.systemPackages = with pkgs; [
-	sway
-	swaylock
-	swayidle
-	waybar
-	mako
-	kitty
-	bemenu
-	grim
-	slurp
-	wl-clipboard
-	brightnessctl
-	tuigreet
+    sway
+    swaylock
+    swayidle
+    waybar
+    mako
+    kitty
+    bemenu
+    grim
+    slurp
+    wl-clipboard
+    brightnessctl
+    tuigreet
   ];
 
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   stylix.cursor = {
-	package = pkgs.bibata-cursors;
-	name = "Bibata-Modern-Ice";
-	size = 24;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 24;
   };
 
   programs.vim.enable = true;
@@ -93,10 +101,8 @@
     VISUAL = "vim";
   };
 
-
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -124,18 +130,18 @@
   #     tree
   #   ];
   # };
-	users.users.rob = {
-		isNormalUser = true;
-		description = "Robert";
-		shell = pkgs.zsh;
-		extraGroups = [
-			"wheel"
-			"networkmanager"
-			"video"
-			"input"
-		];
-		initialPassword = "changeme";    
-	};
+  users.users.rob = {
+    isNormalUser = true;
+    description = "Robert";
+    shell = pkgs.zsh;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "input"
+    ];
+    initialPassword = "changeme";
+  };
 
   # programs.firefox.enable = true;
 
@@ -190,4 +196,3 @@
   system.stateVersion = "25.11"; # Did you read the comment?
 
 }
-
