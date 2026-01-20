@@ -13,6 +13,13 @@
       terminal = "${pkgs.kitty}/bin/kitty";
       menu = "${pkgs.bemenu}/bin/bemenu-run";
 
+      seat = {
+        "*" = {
+          # timeout in milliseconds as a string
+          hide_cursor = "2000";
+        };
+      };
+
       input = {
         "*" = {
           xkb_layout = "de";
