@@ -6,6 +6,9 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+  home.pkgs = with pkgs; [
+	wl-clipboard
+  ];
   wayland.windowManager.sway = {
     enable = true;
     config = rec {
