@@ -37,6 +37,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.rob = import ./home/rob.nix;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       };

@@ -6,8 +6,9 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
-  home.pkgs = with pkgs; [
-	wl-clipboard
+  home.sessionPath = [ "$HOME/.opencode/bin" ];
+  home.packages = with pkgs; [
+    wl-clipboard
   ];
   wayland.windowManager.sway = {
     enable = true;
@@ -50,9 +51,9 @@
   programs.waybar.enable = true;
   programs.firefox = {
     enable = true;
-    #profiles = {
-    #	rob = {};
-    #};
+    profiles = {
+      rob = {};
+    };
   };
   programs.git = {
     enable = true;
@@ -105,7 +106,7 @@
 
       -- nixd (mit NixOS-Options-Completion via deiner Flake)
       local lspconfig = require('lspconfig')
-      local flakePath = "/home/rob/.files/nixos"
+      local flakePath = "/home/rob/dotfiles"
 
       lspconfig.nixd.setup({
         capabilities = capabilities,
@@ -149,4 +150,5 @@
   stylix.targets.neovim.enable = true;
   stylix.targets.kitty.enable = true;
   stylix.targets.sway.enable = true;
+  stylix.targets.firefox.profileNames = [ "rob" ];
 }

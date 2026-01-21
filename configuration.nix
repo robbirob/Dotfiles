@@ -96,10 +96,16 @@
   programs.vim.enable = true;
   programs.zsh.enable = true;
   environment.variables = {
-    SUDO_EDITOR = "vim";
-    EDITOR = "vim";
-    VISUAL = "vim";
+    SUDO_EDITOR = "nvim";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+  ];
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -140,7 +146,7 @@
       "video"
       "input"
     ];
-    initialPassword = "changeme";
+    
   };
 
   # programs.firefox.enable = true;
