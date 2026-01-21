@@ -105,10 +105,9 @@
       })
 
       -- nixd (mit NixOS-Options-Completion via deiner Flake)
-      local lspconfig = require('lspconfig')
       local flakePath = "/home/rob/dotfiles"
 
-      lspconfig.nixd.setup({
+      vim.lsp.config('nixd', {
         capabilities = capabilities,
         settings = {
           nixd = {
@@ -123,6 +122,7 @@
           },
         },
       })
+      vim.lsp.enable('nixd')
       vim.g.mapleader = " "
       vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format buffer" })
     '';
