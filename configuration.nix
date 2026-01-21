@@ -105,6 +105,9 @@
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc
     zlib
+    glibc
+    openssl
+    icu
   ];
 
   # Enable the X11 windowing system.
