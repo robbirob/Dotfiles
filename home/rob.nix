@@ -79,7 +79,14 @@
   programs.firefox = {
     enable = true;
     profiles = {
-      rob = {};
+      rob = {
+        extensions = with pkgs.firefox-addons; [
+          bitwarden
+          ublock-origin
+          darkreader
+          vimium
+        ];
+      };
     };
   };
   programs.git = {
