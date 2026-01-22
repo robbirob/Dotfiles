@@ -18,6 +18,9 @@
   ];
   wayland.windowManager.sway = {
     enable = true;
+    extraConfig = ''
+      focus_wrapping yes
+    '';
     config = rec {
       modifier = "Mod4";
       terminal = "${pkgs.kitty}/bin/kitty";
@@ -58,6 +61,8 @@
         "${modifier}+Shift+j" = "move down";
         "${modifier}+Shift+k" = "move up";
         "${modifier}+Shift+l" = "move right";
+        "${modifier}+Tab" = "focus next";
+        "${modifier}+Shift+Tab" = "focus prev";
         "${modifier}+1" = "workspace number 1";
         "${modifier}+2" = "workspace number 2";
         "${modifier}+3" = "workspace number 3";
