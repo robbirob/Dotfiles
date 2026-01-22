@@ -33,13 +33,13 @@
       nixosConfigurations.thinkpad = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [
-          ./configuration.nix
+          ./hosts/thinkpad/system.nix
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.rob = import ./home/rob.nix;
+            home-manager.users.rob = import ./home/common.nix;
             home-manager.backupFileExtension = "backup";
           }
         ];
