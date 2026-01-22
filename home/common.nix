@@ -24,6 +24,11 @@ in {
     extraConfig = ''
       focus_wrapping yes
       exec waybar
+      
+      # ornicar border settings
+      default_border pixel 1
+      hide_edge_borders both
+      titlebar_padding 1 1
     '';
     config = rec {
       fonts = lib.mkForce {
