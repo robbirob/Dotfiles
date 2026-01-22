@@ -26,7 +26,10 @@
 
   hardware.graphics.enable = true;
   services.libinput.enable = true;
-  programs.sway.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -43,12 +46,14 @@
 
   environment.systemPackages = with pkgs; [
     sway
+    glib
     swaylock
     swayidle
     waybar
     mako
     kitty
     bemenu
+    xdg-utils
     grim
     slurp
     wl-clipboard

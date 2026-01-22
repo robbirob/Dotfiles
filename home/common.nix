@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, stylixColors, ... }:
 
-{
+let
+  palette = stylixColors;
+in {
   imports = [
     ./firefox.nix
     ./git.nix
@@ -22,6 +24,10 @@
       focus_wrapping yes
     '';
     config = rec {
+      fonts = lib.mkForce {
+        names = [ "DejaVu Sans" ];
+        size = 0.5;
+      };
       modifier = "Mod4";
       terminal = "${pkgs.kitty}/bin/kitty";
       menu = "${pkgs.bemenu}/bin/bemenu-run";
@@ -37,6 +43,43 @@
         "*" = {
           xkb_layout = "de";
           xkb_variant = "nodeadkeys";
+        };
+      };
+      colors = let
+        text = "#${palette.base04}";
+        urgent = "#${palette.base09}";
+        focused = "#${palette.base04}";
+        unfocused = "#${palette.base00}";
+        background = "#${palette.base00}";
+        indicator = "#${palette.base0C}";
+      in lib.mkForce {
+        inherit background;
+        urgent = {
+          inherit background indicator text;
+          border = urgent;
+          childBorder = urgent;
+        };
+        focused = {
+          border = focused;
+          childBorder = focused;
+          background = focused;
+          indicator = focused;
+          text = focused;
+        };
+        focusedInactive = {
+          inherit background indicator text;
+          border = unfocused;
+          childBorder = unfocused;
+        };
+        unfocused = {
+          inherit background indicator text;
+          border = unfocused;
+          childBorder = unfocused;
+        };
+        placeholder = {
+          inherit background indicator text;
+          border = unfocused;
+          childBorder = unfocused;
         };
       };
       keybindings = {

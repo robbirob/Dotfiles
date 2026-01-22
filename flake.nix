@@ -36,12 +36,15 @@
           ./hosts/thinkpad/system.nix
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
-          {
+          ({ config, ... }: {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              stylixColors = config.lib.stylix.colors;
+            };
             home-manager.users.rob = import ./home/common.nix;
             home-manager.backupFileExtension = "backup";
-          }
+          })
         ];
       };
     };
