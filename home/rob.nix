@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./firefox.nix
+    ./git.nix
+    ./neovim.nix
+  ];
+
   home.stateVersion = "25.11";
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -76,50 +82,7 @@
     };
   };
   programs.waybar.enable = true;
-  programs.firefox = {
-    enable = true;
-    profiles = {
-      rob = {
-        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-          bitwarden
-          ublock-origin
-          darkreader
-          vimium
-          reddit-enhancement-suite
-        ];
-      };
-    };
-  };
-  programs.git = {
-    enable = true;
-    settings = {
-      user.name = "Robert Freese";
-      user.email = "robbirob@gmail.com";
-    };
-  };
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    # LSP Server + Formatter
-    extraPackages = with pkgs; [
-      nixd
-      nixfmt-rfc-style
-    ];
-
-    plugins = with pkgs.vimPlugins; [
-      nvim-lspconfig
-
-      # Completion
-      nvim-cmp
-      cmp-nvim-lsp
-
-      # Treesitter (Syntax Highlighting)
-      nvim-treesitter.withAllGrammars
-    ];
-
-    extraLuaConfig = builtins.readFile ../nvim/init.lua;
-  };
+  
   programs.kitty.enable = true;
   programs.zsh = {
     enable = true;
