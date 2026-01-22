@@ -85,6 +85,7 @@
           ublock-origin
           darkreader
           vimium
+          reddit-enhancement-suite
         ];
       };
     };
