@@ -7,6 +7,7 @@ in {
     ./firefox.nix
     ./git.nix
     ./neovim.nix
+    ./waybar.nix
   ];
 
   home.stateVersion = "25.11";
@@ -22,6 +23,7 @@ in {
     enable = true;
     extraConfig = ''
       focus_wrapping yes
+      exec waybar
     '';
     config = rec {
       fonts = lib.mkForce {
@@ -82,6 +84,7 @@ in {
           childBorder = unfocused;
         };
       };
+      bars = [ ];
       keybindings = {
         "${modifier}+Return" = "exec ${terminal}";
         "${modifier}+d" = "exec ${menu}";
@@ -129,8 +132,6 @@ in {
       };
     };
   };
-  programs.waybar.enable = true;
-  
   programs.kitty.enable = true;
   programs.zsh = {
     enable = true;

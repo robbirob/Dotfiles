@@ -61,6 +61,12 @@
     tuigreet
   ];
 
+  fonts.packages = with pkgs; [
+    font-awesome
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
+  ];
+
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   stylix.cursor = {
