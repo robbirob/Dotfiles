@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nur.url = "github:nix-community/NUR";
 
     stylix = {
       url = "github:nix-community/stylix/release-25.11";
@@ -16,6 +17,7 @@
     {
       self,
       nixpkgs,
+      nur,
       stylix,
       home-manager,
       ...
@@ -24,6 +26,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
+        overlays = [ nur.overlays.default ];
       };
     in
     {

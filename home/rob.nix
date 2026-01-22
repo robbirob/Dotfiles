@@ -80,7 +80,7 @@
     enable = true;
     profiles = {
       rob = {
-        extensions = with pkgs.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           bitwarden
           ublock-origin
           darkreader
