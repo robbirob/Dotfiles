@@ -17,6 +17,7 @@ in
         modules-center = [ "sway/window" ];
         modules-right = [
           "idle_inhibitor"
+          "temperature"
           "memory"
           "network"
           "pulseaudio"
@@ -52,6 +53,11 @@ in
             warning = 70;
             critical = 85;
           };
+        };
+        temperature = {
+          format = "  {temperatureC}°";
+          critical-threshold = 80;
+          interval = 2;
         };
         network = {
           interval = 1;
