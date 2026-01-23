@@ -61,8 +61,8 @@ in
         };
         network = {
           interval = 1;
-          format-wifi = "  {essid} {signalStrength}%";
-          tooltip-format = "{bandwidthTotalBytes} {ifname} via {gwaddr}";
+          format-wifi = "  {signalStrength}%";
+          tooltip-format = "{essid} {bandwidthTotalBytes} {ifname} via {gwaddr}";
           format-linked = " {ifname} (No IP)";
           format-disconnected = "Disconnected ⚠ {ifname}";
           format-alt = " {ifname}: {ipaddr}/{cidr}";
