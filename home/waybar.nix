@@ -2,20 +2,25 @@
 
 let
   palette = stylixColors;
-in {
+in
+{
   programs.waybar = {
     enable = true;
     settings = {
       mainBar = {
         layer = "top";
         position = "bottom";
-        modules-left = [ "sway/workspaces" "sway/mode" ];
+        modules-left = [
+          "sway/workspaces"
+          "sway/mode"
+        ];
         modules-center = [ "sway/window" ];
         modules-right = [
           "idle_inhibitor"
           "memory"
           "network"
           "pulseaudio"
+          "battery"
           "clock#local"
           "tray"
         ];
@@ -25,7 +30,9 @@ in {
           all-outputs = true;
           window-rewrite = { };
         };
-        "sway/mode" = { format = " {}"; };
+        "sway/mode" = {
+          format = " {}";
+        };
         idle_inhibitor = {
           format = "{icon}";
           format-icons = {
@@ -65,9 +72,31 @@ in {
             phone = "";
             portable = "";
             car = "";
-            default = [ "" "" ];
+            default = [
+              ""
+              ""
+            ];
           };
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        };
+        "battery" = {
+          interval = 5;
+          states = {
+            good = 100;
+            warning = 50;
+            critical = 25;
+          };
+          format = "{icon} {capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
+          format-alt = "{icon} {time}";
+          format-icons = [
+            " "
+            " "
+            " "
+            " "
+            " "
+          ];
         };
       };
     };
