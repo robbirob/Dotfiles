@@ -17,6 +17,7 @@ in {
         workspace 2; exec ${pkgs.firefox}/bin/firefox
         workspace 1
 
+      # ornicar border settings
       default_border pixel 1
       hide_edge_borders both
       titlebar_padding 1 1
