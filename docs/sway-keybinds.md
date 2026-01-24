@@ -29,5 +29,10 @@ Mod = Super/Windows key
 - Mod+1..0 -> Switch to workspace 1..10
 - Mod+Shift+1..0 -> Move container to workspace 1..10
 
+## Audio
+- Mute -> Toggle mute (XF86AudioMute)
+- Volume up -> Raise volume (XF86AudioRaiseVolume)
+- Volume down -> Lower volume (XF86AudioLowerVolume)
+
 ## Autostart
 - Waybar is started via `exec waybar` in Sway's extraConfig.
