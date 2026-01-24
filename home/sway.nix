@@ -5,12 +5,17 @@ let
 in {
   wayland.windowManager.sway = {
     enable = true;
-    extraConfig = ''
-      focus_wrapping yes
-      exec waybar
-      workspace 1; exec ${pkgs.kitty}/bin/kitty
-      workspace 2; exec ${pkgs.firefox}/bin/firefox
-      workspace 1
+      extraConfig = ''
+        focus_wrapping yes
+        exec waybar
+        exec ${pkgs.swayidle}/bin/swayidle -w \
+          timeout 300 '${pkgs.swaylock}/bin/swaylock -f' \
+          timeout 600 'swaymsg "output * dpms off"' \
+          resume 'swaymsg "output * dpms on"' \
+          before-sleep '${pkgs.swaylock}/bin/swaylock -f'
+        workspace 1; exec ${pkgs.kitty}/bin/kitty
+        workspace 2; exec ${pkgs.firefox}/bin/firefox
+        workspace 1
 
       # ornicar border settings
       default_border pixel 1
