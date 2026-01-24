@@ -1,4 +1,4 @@
-{ stylixColors, ... }:
+{ pkgs, stylixColors, ... }:
 
 let
   palette = stylixColors;
@@ -18,6 +18,7 @@ in
         modules-right = [
           "idle_inhibitor"
           "temperature"
+          "custom/stralsund-temp"
           "memory"
           "network"
           "pulseaudio"
@@ -58,6 +59,14 @@ in
           format = "  {temperatureC}°";
           critical-threshold = 80;
           interval = 2;
+        };
+        "custom/stralsund-temp" = {
+          exec = ''
+            ${pkgs.bash}/bin/bash -lc "output=\$(${pkgs.curl}/bin/curl -s \"https://wttr.in/Stralsund?format=%C;%t\"); IFS=';' read -r cond temp <<< \"\$output\"; lc=\$(printf \"%s\" \"\$cond\" | ${pkgs.coreutils}/bin/tr \"[:upper:]\" \"[:lower:]\"); icon=\"\"; case \"\$lc\" in *sun*|*clear*) icon=\"\" ;; *cloud*|*overcast*) icon=\"\" ;; *rain*|*drizzle*|*shower*) icon=\"\" ;; *snow*|*sleet*|*blizzard*|*ice*) icon=\"\" ;; esac; printf \"%s %s\" \"\$icon\" \"\$temp\""
+          '';
+          interval = 300;
+          format = "{}";
+          tooltip = false;
         };
         network = {
           interval = 1;
