@@ -63,8 +63,8 @@ in
         "custom/stralsund-temp" = {
           exec = ''
             ${pkgs.bash}/bin/bash -lc '
-              output="$(${pkgs.curl}/bin/curl -s "https://wttr.in/Stralsund?format=%C;%t")"
-              IFS=";" read -r cond temp <<< "$output"
+              output="$(${pkgs.curl}/bin/curl -s "https://wttr.in/Stralsund?format=%C;%t;%f")"
+              IFS=";" read -r cond temp feels <<< "$output"
               lc=$(printf "%s" "$cond" | ${pkgs.coreutils}/bin/tr "[:upper:]" "[:lower:]")
               icon=""
               case "$lc" in
@@ -74,7 +74,8 @@ in
                 *snow*|*sleet*|*blizzard*|*ice*) icon="" ;;
               esac
               cond_safe=$(printf "%s" "$cond" | ${pkgs.coreutils}/bin/tr -d "\"")
-              printf "{\"text\":\"%s %s\",\"tooltip\":\"Stralsund: %s %s\"}" "$icon" "$temp" "$cond_safe" "$temp"
+              feels_safe=$(printf "%s" "$feels" | ${pkgs.coreutils}/bin/tr -d "\"")
+              printf "{\"text\":\"%s %s\",\"tooltip\":\"Stralsund: %s (feels %s)\"}" "$icon" "$temp" "$cond_safe" "$feels_safe"
             '
           '';
           interval = 300;
