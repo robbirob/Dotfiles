@@ -28,7 +28,12 @@ in
     wl-clipboard
     brightnessctl
   ];
-  programs.kitty.enable = true;
+  programs.kitty = {
+    enable = true;
+    settings = {
+      background_opacity = lib.mkForce "0.85";
+    };
+  };
   programs.zsh = {
     enable = true;
     shellAliases = {

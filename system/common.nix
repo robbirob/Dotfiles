@@ -68,6 +68,7 @@
   ];
 
   stylix.enable = true;
+  stylix.image = ../wallpaper/pexels-lum3n-44775-167699.jpg;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   stylix.fonts = {
     sansSerif = {
