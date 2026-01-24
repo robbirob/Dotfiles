@@ -62,11 +62,25 @@ in
         };
         "custom/stralsund-temp" = {
           exec = ''
-            ${pkgs.bash}/bin/bash -lc "output=\$(${pkgs.curl}/bin/curl -s \"https://wttr.in/Stralsund?format=%C;%t\"); IFS=';' read -r cond temp <<< \"\$output\"; lc=\$(printf \"%s\" \"\$cond\" | ${pkgs.coreutils}/bin/tr \"[:upper:]\" \"[:lower:]\"); icon=\"\"; case \"\$lc\" in *sun*|*clear*) icon=\"\" ;; *cloud*|*overcast*) icon=\"\" ;; *rain*|*drizzle*|*shower*) icon=\"\" ;; *snow*|*sleet*|*blizzard*|*ice*) icon=\"\" ;; esac; printf \"%s %s\" \"\$icon\" \"\$temp\""
+            ${pkgs.bash}/bin/bash -lc '
+              output="$(${pkgs.curl}/bin/curl -s "https://wttr.in/Stralsund?format=%C;%t")"
+              IFS=";" read -r cond temp <<< "$output"
+              lc=$(printf "%s" "$cond" | ${pkgs.coreutils}/bin/tr "[:upper:]" "[:lower:]")
+              icon=""
+              case "$lc" in
+                *sun*|*clear*) icon="" ;;
+                *cloud*|*overcast*) icon="" ;;
+                *rain*|*drizzle*|*shower*) icon="" ;;
+                *snow*|*sleet*|*blizzard*|*ice*) icon="" ;;
+              esac
+              cond_safe=$(printf "%s" "$cond" | ${pkgs.coreutils}/bin/tr -d "\"")
+              printf "{\"text\":\"%s %s\",\"tooltip\":\"Stralsund: %s %s\"}" "$icon" "$temp" "$cond_safe" "$temp"
+            '
           '';
           interval = 300;
           format = "{}";
-          tooltip = false;
+          return-type = "json";
+          tooltip = true;
         };
         network = {
           interval = 1;
