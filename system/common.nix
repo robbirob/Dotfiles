@@ -47,7 +47,7 @@
   environment.systemPackages = with pkgs; [
     sway
     glib
-    swaylock
+    swaylock-effects
     swayidle
     waybar
     mako

@@ -1,18 +1,27 @@
-{ config, pkgs, lib, stylixColors, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  stylixColors,
+  ...
+}:
 
 let
   palette = stylixColors;
-in {
+  swaylockPkg = pkgs.swaylock-effects;
+  swaylockCmd = "${swaylockPkg}/bin/swaylock -f --color ${palette.base00} --text-color ${palette.base05} --text-ver-color ${palette.base0D} --text-wrong-color ${palette.base08} --ring-color ${palette.base0D} --ring-ver-color ${palette.base0D} --ring-wrong-color ${palette.base08} --key-hl-color ${palette.base0B} --inside-color ${palette.base00} --inside-ver-color ${palette.base00} --inside-wrong-color ${palette.base00} --line-color ${palette.base00} --line-ver-color ${palette.base0D} --line-wrong-color ${palette.base08} --separator-color ${palette.base00} --indicator --indicator-idle-visible --clock --timestr \"%H:%M\" --datestr \"%a %d %b\"";
+in
+{
   wayland.windowManager.sway = {
     enable = true;
-      extraConfig = ''
+    extraConfig = ''
         focus_wrapping yes
         exec waybar
         exec ${pkgs.swayidle}/bin/swayidle -w \
-          timeout 300 '${pkgs.swaylock}/bin/swaylock -f' \
+          timeout 300 '${swaylockCmd}' \
           timeout 600 'swaymsg "output * dpms off"' \
           resume 'swaymsg "output * dpms on"' \
-          before-sleep '${pkgs.swaylock}/bin/swaylock -f'
+          before-sleep '${swaylockCmd}'
         workspace 1; exec ${pkgs.kitty}/bin/kitty
         workspace 2; exec ${pkgs.firefox}/bin/firefox
         workspace 1
@@ -44,43 +53,45 @@ in {
           xkb_variant = "nodeadkeys";
         };
       };
-      colors = let
-        text = "#${palette.base04}";
-        urgent = "#${palette.base09}";
-        focused = "#${palette.base04}";
-        unfocused = "#${palette.base00}";
-        background = "#${palette.base00}";
-        indicator = "#${palette.base0C}";
-      in lib.mkForce {
-        inherit background;
-        urgent = {
-          inherit background indicator text;
-          border = urgent;
-          childBorder = urgent;
+      colors =
+        let
+          text = "#${palette.base04}";
+          urgent = "#${palette.base09}";
+          focused = "#${palette.base04}";
+          unfocused = "#${palette.base00}";
+          background = "#${palette.base00}";
+          indicator = "#${palette.base0C}";
+        in
+        lib.mkForce {
+          inherit background;
+          urgent = {
+            inherit background indicator text;
+            border = urgent;
+            childBorder = urgent;
+          };
+          focused = {
+            border = focused;
+            childBorder = focused;
+            background = focused;
+            indicator = focused;
+            text = focused;
+          };
+          focusedInactive = {
+            inherit background indicator text;
+            border = unfocused;
+            childBorder = unfocused;
+          };
+          unfocused = {
+            inherit background indicator text;
+            border = unfocused;
+            childBorder = unfocused;
+          };
+          placeholder = {
+            inherit background indicator text;
+            border = unfocused;
+            childBorder = unfocused;
+          };
         };
-        focused = {
-          border = focused;
-          childBorder = focused;
-          background = focused;
-          indicator = focused;
-          text = focused;
-        };
-        focusedInactive = {
-          inherit background indicator text;
-          border = unfocused;
-          childBorder = unfocused;
-        };
-        unfocused = {
-          inherit background indicator text;
-          border = unfocused;
-          childBorder = unfocused;
-        };
-        placeholder = {
-          inherit background indicator text;
-          border = unfocused;
-          childBorder = unfocused;
-        };
-      };
       bars = [ ];
       keybindings = {
         "${modifier}+Return" = "exec ${terminal}";
