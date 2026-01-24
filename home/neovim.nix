@@ -3,6 +3,14 @@
 {
   home.packages = with pkgs; [
     neovim
+    ripgrep
+    fd
+    fzf
+    luarocks
+    gcc
+    unzip
+    wget
+    lazygit
     black
     google-java-format
     jdk25
