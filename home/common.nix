@@ -1,8 +1,15 @@
-{ config, pkgs, lib, stylixColors, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  stylixColors,
+  ...
+}:
 
 let
   palette = stylixColors;
-in {
+in
+{
   imports = [
     ./firefox.nix
     ./git.nix
@@ -41,7 +48,27 @@ in {
       ];
     };
   };
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks."*".addKeysToAgent = "yes";
+  };
+  services.ssh-agent.enable = true;
   services.mako.enable = true;
+
+  systemd.user.services.ssh-add = {
+    Unit = {
+      Description = "Add SSH key to agent";
+      After = [ "ssh-agent.service" ];
+      Requires = [ "ssh-agent.service" ];
+    };
+    Service = {
+      Type = "oneshot";
+      Environment = "SSH_AUTH_SOCK=%t/ssh-agent";
+      ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519";
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
 
   stylix.targets.neovim.enable = true;
   stylix.targets.kitty.enable = true;
