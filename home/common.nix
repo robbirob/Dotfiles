@@ -25,6 +25,8 @@ in {
   programs.zsh = {
     enable = true;
     shellAliases = {
+      vi = "nvim";
+      vim = "nvim";
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#thinkpad";
     };
     oh-my-zsh = {
