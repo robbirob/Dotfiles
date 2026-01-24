@@ -8,6 +8,9 @@ in {
     extraConfig = ''
       focus_wrapping yes
       exec waybar
+      workspace 1; exec ${pkgs.kitty}/bin/kitty
+      workspace 2; exec ${pkgs.firefox}/bin/firefox
+      workspace 1
 
       # ornicar border settings
       default_border pixel 1
