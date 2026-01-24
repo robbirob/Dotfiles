@@ -19,6 +19,7 @@ in {
   home.sessionPath = [ "$HOME/.opencode/bin" ];
   home.packages = with pkgs; [
     wl-clipboard
+    brightnessctl
   ];
   programs.kitty.enable = true;
   programs.zsh = {

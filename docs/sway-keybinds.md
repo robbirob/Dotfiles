@@ -34,5 +34,9 @@ Mod = Super/Windows key
 - Volume up -> Raise volume (XF86AudioRaiseVolume)
 - Volume down -> Lower volume (XF86AudioLowerVolume)
 
+## Brightness
+- Brightness up -> Increase brightness (XF86MonBrightnessUp)
+- Brightness down -> Decrease brightness (XF86MonBrightnessDown)
+
 ## Autostart
 - Waybar is started via `exec waybar` in Sway's extraConfig.
