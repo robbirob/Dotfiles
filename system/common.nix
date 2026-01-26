@@ -48,7 +48,7 @@ in
   services.logind.settings.Login = {
     HandleSuspendKey = "poweroff";
     HandleSuspendKeyLongPress = "poweroff";
-    SuspendKeyIgnoreInhibited = "yes";
+    SuspendKeyIgnoreInhibited = "no";
   };
   services.greetd = {
     enable = true;
