@@ -37,6 +37,7 @@ in
   home.packages = with pkgs; [
     wl-clipboard
     brightnessctl
+    glow
   ];
   programs.kitty = {
     enable = true;
