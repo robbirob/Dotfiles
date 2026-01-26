@@ -45,6 +45,11 @@ in
     enable = true;
     pulse.enable = true;
   };
+  services.logind.settings.Login = {
+    HandleSuspendKey = "poweroff";
+    HandleSuspendKeyLongPress = "poweroff";
+    SuspendKeyIgnoreInhibited = "yes";
+  };
   services.greetd = {
     enable = true;
     settings = {

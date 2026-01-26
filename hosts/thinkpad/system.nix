@@ -8,7 +8,17 @@
   boot.loader.grub.enable = true;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [
+    "kvm-intel"
+    "thinkpad_acpi"
+  ];
+  boot.kernelParams = [
+    "thinkpad_acpi.hotkey=1"
+  ];
+
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/platform/thinkpad_acpi/hotkey_mask - - - - 0xffffffff"
+  ];
 
   networking.hostName = "thinkpad";
 
