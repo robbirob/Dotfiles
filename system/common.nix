@@ -1,5 +1,16 @@
 { pkgs, ... }:
 
+let
+  androidPkgs = pkgs.androidenv.composeAndroidPackages {
+    cmdLineToolsVersion = "latest";
+    platformToolsVersion = "35.0.2";
+    buildToolsVersions = [ "28.0.3" ];
+    platformVersions = [ "36" ];
+    includeEmulator = true;
+    includeSystemImages = false;
+  };
+  androidSdk = androidPkgs.androidsdk;
+in
 {
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
@@ -59,6 +70,10 @@
     wl-clipboard
     brightnessctl
     tuigreet
+    flutter
+    android-tools
+    jdk17
+    androidSdk
   ];
 
   fonts.packages = with pkgs; [
@@ -96,7 +111,9 @@
 
   programs.vim.enable = true;
   programs.zsh.enable = true;
+  programs.adb.enable = true;
   environment.variables = {
+    ANDROID_SDK_NIX = "${androidSdk}/libexec/android-sdk";
     SUDO_EDITOR = "nvim";
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -107,6 +124,40 @@
     stdenv.cc.cc
     zlib
     glibc
+    xorg.libX11
+    xorg.libXext
+    xorg.libXrender
+    xorg.libXrandr
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXfixes
+    xorg.libXinerama
+    xorg.libXdamage
+    xorg.libXcomposite
+    xorg.libXtst
+    xorg.libXmu
+    xorg.libxcb
+    xorg.libSM
+    xorg.libICE
+    libGL
+    alsa-lib
+    libpulseaudio
+    libpng
+    nss
+    nspr
+    expat
+    libdrm
+    xorg.libxkbfile
+    libbsd
+    libxkbcommon
+    fontconfig
+    freetype
+    xorg.xcbutil
+    xorg.xcbutilwm
+    xorg.xcbutilimage
+    xorg.xcbutilkeysyms
+    xorg.xcbutilrenderutil
+    pkgs."xcb-util-cursor"
   ];
 
   users.users.rob = {
@@ -118,6 +169,8 @@
       "networkmanager"
       "video"
       "input"
+      "adbusers"
+      "kvm"
     ];
   };
 }

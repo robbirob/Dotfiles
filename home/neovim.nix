@@ -13,7 +13,7 @@
     lazygit
     black
     google-java-format
-    jdk25
+    jdk17
     jdt-language-server
     lua-language-server
     nodejs

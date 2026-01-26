@@ -27,6 +27,10 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ nur.overlays.default ];
+        config = {
+          allowUnfree = true;
+          android_sdk.accept_license = true;
+        };
       };
     in
     {
@@ -36,15 +40,18 @@
           ./hosts/thinkpad/system.nix
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
-          ({ config, ... }: {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              stylixColors = config.lib.stylix.colors;
-            };
-            home-manager.users.rob = import ./home/common.nix;
-            home-manager.backupFileExtension = "backup";
-          })
+          (
+            { config, ... }:
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                stylixColors = config.lib.stylix.colors;
+              };
+              home-manager.users.rob = import ./home/common.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+          )
         ];
       };
     };

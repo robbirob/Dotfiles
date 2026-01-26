@@ -22,8 +22,18 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    ANDROID_SDK_ROOT = "$HOME/Android/Sdk";
+    ANDROID_HOME = "$HOME/Android/Sdk";
+    JAVA_HOME = "${pkgs.jdk17}";
   };
-  home.sessionPath = [ "$HOME/.opencode/bin" ];
+  home.sessionPath = [
+    "$HOME/.opencode/bin"
+    "$ANDROID_SDK_ROOT/platform-tools"
+    "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+    "$ANDROID_SDK_ROOT/emulator"
+    "$ANDROID_SDK_NIX/cmdline-tools/latest/bin"
+    "$HOME/.pub-cache/bin"
+  ];
   home.packages = with pkgs; [
     wl-clipboard
     brightnessctl
@@ -40,6 +50,7 @@ in
       vi = "nvim";
       vim = "nvim";
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#thinkpad";
+      emulator = ''LD_LIBRARY_PATH="$ANDROID_SDK_ROOT/emulator/lib64:$ANDROID_SDK_ROOT/emulator/lib64/qt/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" command emulator'';
     };
     oh-my-zsh = {
       enable = true;
