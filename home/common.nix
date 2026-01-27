@@ -3,14 +3,17 @@
   pkgs,
   lib,
   stylixColors,
+  inputs,
   ...
 }:
 
 let
   palette = stylixColors;
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
   imports = [
+    inputs.spicetify-nix.homeManagerModules.spicetify
     ./firefox.nix
     ./git.nix
     ./neovim.nix
@@ -39,6 +42,12 @@ in
     brightnessctl
     glow
   ];
+  programs.spicetify = {
+    enable = true;
+    enabledSnippets = with spicePkgs.snippets; [
+      sonicDancing
+    ];
+  };
   programs.kitty = {
     enable = true;
     settings = {

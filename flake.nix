@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur.url = "github:nix-community/NUR";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     stylix = {
       url = "github:nix-community/stylix/release-25.11";
@@ -18,6 +19,7 @@
       self,
       nixpkgs,
       nur,
+      spicetify-nix,
       stylix,
       home-manager,
       ...
@@ -47,6 +49,9 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
                 stylixColors = config.lib.stylix.colors;
+                inputs = {
+                  inherit spicetify-nix;
+                };
               };
               home-manager.users.rob = import ./home/common.nix;
               home-manager.backupFileExtension = "backup";
