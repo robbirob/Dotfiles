@@ -62,6 +62,31 @@ in
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#thinkpad";
       emulator = ''LD_LIBRARY_PATH="$ANDROID_SDK_ROOT/emulator/lib64:$ANDROID_SDK_ROOT/emulator/lib64/qt/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" command emulator'';
     };
+    initExtra = ''
+      alias g='git'
+
+      alias gc='git clone'
+      alias gcm='git commit -m'
+
+      alias ga='git add'
+      alias gaa='git add -A'
+      alias gap='git add -p'
+
+      alias gst='git status -sb'
+      alias gd='git diff'
+      alias gds='git diff --staged'
+
+      alias gco='git checkout'
+      alias gcb='git checkout -b'
+      alias gsw='git switch'
+      alias gswc='git switch -c'
+
+      alias gl='git log --oneline --decorate --graph'
+      alias gll='git log --oneline --decorate --graph --all'
+
+      alias gp='git push'
+      alias gpl='git pull --rebase --autostash'
+    '';
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
