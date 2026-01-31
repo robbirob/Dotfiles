@@ -9,7 +9,7 @@
 
 let
   palette = stylixColors;
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
@@ -62,7 +62,7 @@ in
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#thinkpad";
       emulator = ''LD_LIBRARY_PATH="$ANDROID_SDK_ROOT/emulator/lib64:$ANDROID_SDK_ROOT/emulator/lib64/qt/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" command emulator'';
     };
-    initExtra = ''
+    initContent = ''
       alias g='git'
 
       alias gc='git clone'
@@ -84,7 +84,6 @@ in
       alias gl='git log --oneline --decorate --graph'
       alias gll='git log --oneline --decorate --graph --all'
 
-      alias gp='git push'
       alias gpl='git pull --rebase --autostash'
     '';
     oh-my-zsh = {

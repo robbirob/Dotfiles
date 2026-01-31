@@ -1,10 +1,11 @@
 # Git Aliases (Zsh)
 
-These aliases are defined in `home/common.nix` under `programs.zsh.initExtra`.
+These aliases are defined in `home/common.nix` under `programs.zsh.initContent`.
 
 Notes:
 - `gs` is intentionally not used (can clash with ghostscript). Use `gst` instead.
-- oh-my-zsh's `git` plugin is enabled; these aliases are added via `initExtra` so they take precedence.
+- No `git push` alias is defined (intentional; avoids accidental pushes). Use `git push`.
+- oh-my-zsh's `git` plugin is enabled; these aliases are added via `initContent` so they take precedence.
 
 ## Core
 - `g` -> `git`
@@ -29,6 +30,5 @@ Notes:
 - `gl` -> `git log --oneline --decorate --graph`
 - `gll` -> `git log --oneline --decorate --graph --all`
 
-## Push / Pull
-- `gp` -> `git push`
+## Pull
 - `gpl` -> `git pull --rebase --autostash`
