@@ -74,6 +74,7 @@ in
     slurp
     wl-clipboard
     brightnessctl
+    bat
     tuigreet
     flutter
     android-tools
