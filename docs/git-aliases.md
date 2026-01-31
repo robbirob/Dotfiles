@@ -5,6 +5,7 @@ These aliases are defined in `home/common.nix` under `programs.zsh.initContent`.
 Notes:
 - `gs` is intentionally not used (can clash with ghostscript). Use `gst` instead.
 - No `git push` alias is defined (intentional; avoids accidental pushes). Use `git push`.
+- oh-my-zsh's `git` plugin defines `gp` by default; this config explicitly runs `unalias gp`.
 - oh-my-zsh's `git` plugin is enabled; these aliases are added via `initContent` so they take precedence.
 
 ## Core

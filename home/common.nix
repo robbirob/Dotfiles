@@ -85,6 +85,9 @@ in
       alias gll='git log --oneline --decorate --graph --all'
 
       alias gpl='git pull --rebase --autostash'
+
+      # oh-my-zsh's git plugin defines `gp` (git push); keep it unaliased.
+      unalias gp 2>/dev/null
     '';
     oh-my-zsh = {
       enable = true;
