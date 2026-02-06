@@ -108,7 +108,15 @@ in
     matchBlocks."*".addKeysToAgent = "yes";
   };
   services.ssh-agent.enable = true;
-  services.mako.enable = true;
+  services.mako = {
+    enable = true;
+    settings = {
+      "app-name=Spotify" = {
+        default-timeout = 3000;
+        ignore-timeout = true;
+      };
+    };
+  };
 
   systemd.user.services.ssh-add = {
     Unit = {
