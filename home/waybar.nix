@@ -17,6 +17,7 @@ in
         modules-center = [ "sway/window" ];
         modules-right = [
           "idle_inhibitor"
+          "image#spotify-art"
           "custom/spotify"
           "temperature"
           "custom/stralsund-temp"
@@ -60,6 +61,56 @@ in
           format = "  {temperatureC}°";
           critical-threshold = 80;
           interval = 2;
+        };
+
+        "image#spotify-art" = {
+          exec = ''
+            ${pkgs.bash}/bin/bash -lc '
+              set -eu
+
+              art_url="$(${pkgs.playerctl}/bin/playerctl -p spotify metadata mpris:artUrl 2>/dev/null || true)"
+              track="$(${pkgs.playerctl}/bin/playerctl -p spotify metadata --format "{{xesam:artist}} - {{xesam:title}}" 2>/dev/null || true)"
+              track="$(printf "%s" "$track" | ${pkgs.coreutils}/bin/tr -s " " | ${pkgs.gnused}/bin/sed -e "s/^ *//" -e "s/ *$//")"
+
+              if [ -z "$art_url" ]; then
+                exit 0
+              fi
+
+              if printf "%s" "$art_url" | ${pkgs.gnugrep}/bin/grep -q "^file://"; then
+                path="$(printf "%s" "$art_url" | ${pkgs.gnused}/bin/sed -e "s|^file://||")"
+                printf "%s\n%s\n" "$path" "$track"
+                exit 0
+              fi
+
+              cache_root="''${XDG_CACHE_HOME:-''${HOME}/.cache}"
+              cache_dir="$cache_root/waybar"
+              ${pkgs.coreutils}/bin/mkdir -p "$cache_dir"
+
+              img_path="$cache_dir/spotify-cover.jpg"
+              url_path="$cache_dir/spotify-cover.url"
+
+              old_url=""
+              if [ -r "$url_path" ]; then
+                old_url="$(cat "$url_path" 2>/dev/null || true)"
+              fi
+
+              if [ "$art_url" != "$old_url" ] || [ ! -s "$img_path" ]; then
+                ${pkgs.curl}/bin/curl -fsSL "$art_url" -o "$img_path.tmp" \
+                  && ${pkgs.coreutils}/bin/mv "$img_path.tmp" "$img_path" \
+                  && printf "%s" "$art_url" > "$url_path"
+              fi
+
+              if [ -s "$img_path" ]; then
+                printf "%s\n%s\n" "$img_path" "$track"
+              fi
+            '
+          '';
+          size = 24;
+          interval = 5;
+          tooltip = true;
+          on-click = "${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
+          on-scroll-up = "${pkgs.playerctl}/bin/playerctl -p spotify previous";
+          on-scroll-down = "${pkgs.playerctl}/bin/playerctl -p spotify next";
         };
 
         "custom/spotify" = {
@@ -129,7 +180,7 @@ in
                 printf "%s\n" "$track"
               } > "$state_file"
 
-              text=" $part"
+              text="$part"
               ${pkgs.jq}/bin/jq -cn \
                 --arg text "$text" \
                 --arg tooltip "$track" \
@@ -273,6 +324,13 @@ in
       }
       #custom-spotify.paused {
         opacity: 0.6;
+      }
+
+      #image {
+        margin: 0 5px;
+      }
+      #image.empty {
+        margin: 0;
       }
     '';
   };
