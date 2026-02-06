@@ -17,6 +17,7 @@ in
         modules-center = [ "sway/window" ];
         modules-right = [
           "idle_inhibitor"
+          "custom/spotify"
           "temperature"
           "custom/stralsund-temp"
           "memory"
@@ -59,6 +60,91 @@ in
           format = "  {temperatureC}°";
           critical-threshold = 80;
           interval = 2;
+        };
+
+        "custom/spotify" = {
+          exec = ''
+            ${pkgs.bash}/bin/bash -lc '
+              set -eu
+
+              window=6
+              state_dir="''${XDG_RUNTIME_DIR:-/tmp}"
+              state_file="$state_dir/waybar-spotify-scroll"
+
+              status="$(${pkgs.playerctl}/bin/playerctl -p spotify status 2>/dev/null || true)"
+              track="$(${pkgs.playerctl}/bin/playerctl -p spotify metadata --format "{{xesam:artist}} - {{xesam:title}}" 2>/dev/null || true)"
+              track="$(printf "%s" "$track" | ${pkgs.coreutils}/bin/tr -s " " | ${pkgs.gnused}/bin/sed -e "s/^ *//" -e "s/ *$//")"
+
+              off=0
+              last=""
+              if [ -r "$state_file" ]; then
+                IFS= read -r off < "$state_file" || true
+                IFS= read -r last < <(${pkgs.coreutils}/bin/tail -n +2 "$state_file" 2>/dev/null || true) || true
+              fi
+
+              # Keep showing the last known track when paused/stopped.
+              if [ -z "$track" ]; then
+                track="$last"
+              fi
+              if [ -z "$track" ]; then
+                exit 0
+              fi
+
+              if [ "$track" != "$last" ]; then
+                off=0
+              fi
+
+              padded="$track"
+              if [ "''${#padded}" -le "$window" ]; then
+                while [ "''${#padded}" -lt "$window" ]; do
+                  padded="$padded "
+                done
+              else
+                padded="$padded   "
+              fi
+
+              len=''${#padded}
+              if [ "$len" -le 0 ]; then
+                exit 0
+              fi
+              off=$((off % len))
+
+              part="''${padded:off:window}"
+              if [ "''${#part}" -lt "$window" ]; then
+                need=$((window - ''${#part}))
+                part="$part''${padded:0:need}"
+              fi
+
+              class="playing"
+              if [ "$status" != "Playing" ]; then
+                class="paused"
+              fi
+
+              if [ "$status" = "Playing" ]; then
+                off=$(((off + 1) % len))
+              fi
+
+              {
+                printf "%s\n" "$off"
+                printf "%s\n" "$track"
+              } > "$state_file"
+
+              text=" $part"
+              ${pkgs.jq}/bin/jq -cn \
+                --arg text "$text" \
+                --arg tooltip "$track" \
+                --arg class "$class" \
+                "{text:\$text, tooltip:\$tooltip, class:\$class}"
+            '
+          '';
+          interval = 1;
+          hide-empty-text = true;
+          return-type = "json";
+          format = "{text}";
+          tooltip = true;
+          on-click = "${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
+          on-scroll-up = "${pkgs.playerctl}/bin/playerctl -p spotify previous";
+          on-scroll-down = "${pkgs.playerctl}/bin/playerctl -p spotify next";
         };
         "custom/stralsund-temp" = {
           exec = ''
@@ -181,6 +267,12 @@ in
         background-color: #${palette.base08};
         font-weight: bold;
         color: #ffffff;
+      }
+      #custom-spotify {
+        color: #${palette.base0E};
+      }
+      #custom-spotify.paused {
+        opacity: 0.6;
       }
     '';
   };
