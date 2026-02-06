@@ -59,7 +59,7 @@ in
     shellAliases = {
       vi = "nvim";
       vim = "nvim";
-      flup = "nix flake update ~/dotfiles";
+      flup = "nix flake update --flake \"$HOME/dotfiles\"";
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#thinkpad";
       emulator = ''LD_LIBRARY_PATH="$ANDROID_SDK_ROOT/emulator/lib64:$ANDROID_SDK_ROOT/emulator/lib64/qt/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" command emulator'';
     };
