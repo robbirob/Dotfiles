@@ -7,6 +7,13 @@
 
   hardware.enableRedistributableFirmware = true;
 
+  # Avoid OOM kills on a low-RAM laptop (helps a lot with Steam games).
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   # Define on which hard drive you want to install Grub.

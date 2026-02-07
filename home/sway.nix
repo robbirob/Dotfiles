@@ -23,11 +23,13 @@ in
           resume 'swaymsg "output * dpms on"' \
           before-sleep '${swaylockCmd}'
 
-        # Keep Spotify on workspace 10.
-        assign [class="Spotify"] workspace number 10
+        # Start Spotify hidden (scratchpad) so it doesn't mark workspace 10 as urgent
+        # on startup. (Scratchpad windows are floating; Mod+0 will tile it again.)
+        for_window [class="Spotify" window_role="spotify"] move to scratchpad
+        exec spotify
+
         workspace 1; exec ${pkgs.kitty}/bin/kitty
         workspace 2; exec ${pkgs.firefox}/bin/firefox
-        workspace 10; exec spotify
         workspace 1
 
       # ornicar border settings
@@ -130,7 +132,7 @@ in
         "${modifier}+7" = "workspace number 7";
         "${modifier}+8" = "workspace number 8";
         "${modifier}+9" = "workspace number 9";
-        "${modifier}+0" = "workspace number 10";
+        "${modifier}+0" = "workspace number 10; [class=\"Spotify\"] scratchpad show, floating disable";
         "${modifier}+Shift+1" = "move container to workspace number 1";
         "${modifier}+Shift+2" = "move container to workspace number 2";
         "${modifier}+Shift+3" = "move container to workspace number 3";

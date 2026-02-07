@@ -33,6 +33,10 @@ in
           disable-scroll = true;
           all-outputs = true;
           window-rewrite = { };
+          "persistent-workspaces" = {
+            # Keep workspace 10 visible even when empty.
+            "10" = [ ];
+          };
           format = "{icon}";
           format-icons = {
             "1" = "1";
@@ -45,6 +49,7 @@ in
             "8" = "8";
             "9" = "9";
             "10" = "";
+            persistent = "";
             default = "";
           };
         };
