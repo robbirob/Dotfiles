@@ -22,8 +22,12 @@ in
           timeout 600 'swaymsg "output * dpms off"' \
           resume 'swaymsg "output * dpms on"' \
           before-sleep '${swaylockCmd}'
+
+        # Keep Spotify on workspace 10.
+        assign [class="Spotify"] workspace number 10
         workspace 1; exec ${pkgs.kitty}/bin/kitty
         workspace 2; exec ${pkgs.firefox}/bin/firefox
+        workspace 10; exec spotify
         workspace 1
 
       # ornicar border settings
