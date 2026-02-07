@@ -35,7 +35,13 @@ in
     keyMap = "de-latin1-nodeadkeys";
   };
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-vaapi-driver
+      libvdpau-va-gl
+    ];
+  };
   services.libinput.enable = true;
   programs.sway = {
     enable = true;
@@ -123,6 +129,8 @@ in
     SUDO_EDITOR = "nvim";
     EDITOR = "nvim";
     VISUAL = "nvim";
+    LIBVA_DRIVER_NAME = "i965";
+    VDPAU_DRIVER = "va_gl";
   };
 
   programs.nix-ld.enable = true;
