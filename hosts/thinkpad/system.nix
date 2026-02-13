@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   imports = [
     ./hardware.nix
@@ -32,6 +33,12 @@
 
   virtualisation.docker.enable = true;
   users.users.rob.extraGroups = [ "docker" ];
+
+  systemd.services.greetd = {
+    after = [ "docker.service" ];
+    conflicts = [ "getty@tty2.service" ];
+  };
+  systemd.services."getty@tty2".enable = lib.mkForce false;
 
   networking.hostName = "thinkpad";
 

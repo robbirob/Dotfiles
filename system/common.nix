@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   androidPkgs = pkgs.androidenv.composeAndroidPackages {
@@ -59,6 +59,7 @@ in
   services.greetd = {
     enable = true;
     settings = {
+      terminal.vt = lib.mkForce 2;
       default_session = {
         command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
         user = "greeter";
