@@ -30,6 +30,9 @@
     "w /sys/devices/platform/thinkpad_acpi/hotkey_mask - - - - 0xffffffff"
   ];
 
+  virtualisation.docker.enable = true;
+  users.users.rob.extraGroups = [ "docker" ];
+
   networking.hostName = "thinkpad";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
