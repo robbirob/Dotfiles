@@ -10,6 +10,7 @@ let
   palette = stylixColors;
   swaylockPkg = pkgs.swaylock-effects;
   swaylockCmd = "${swaylockPkg}/bin/swaylock -f --color ${palette.base00} --text-color ${palette.base05} --text-ver-color ${palette.base0D} --text-wrong-color ${palette.base08} --ring-color ${palette.base0D} --ring-ver-color ${palette.base0D} --ring-wrong-color ${palette.base08} --key-hl-color ${palette.base0B} --inside-color ${palette.base00} --inside-ver-color ${palette.base00} --inside-wrong-color ${palette.base00} --line-color ${palette.base00} --line-ver-color ${palette.base0D} --line-wrong-color ${palette.base08} --separator-color ${palette.base00} --indicator --indicator-idle-visible --clock --timestr \"%H:%M\" --datestr \"%a %d %b\"";
+  bemenuCmd = "${pkgs.bemenu}/bin/bemenu-run --ignorecase --line-height 24 --hp 12 --scrollbar autohide --fn \"${config.stylix.fonts.monospace.name} 11\" --tb \"#${palette.base01}\" --tf \"#${palette.base0D}\" --fb \"#${palette.base01}\" --ff \"#${palette.base05}\" --cb \"#${palette.base02}\" --cf \"#${palette.base0D}\" --nb \"#${palette.base00}\" --nf \"#${palette.base05}\" --hb \"#${palette.base02}\" --hf \"#${palette.base0E}\" --sb \"#${palette.base0D}\" --sf \"#${palette.base00}\" --ab \"#${palette.base00}\" --af \"#${palette.base04}\" --scb \"#${palette.base01}\" --scf \"#${palette.base0D}\"";
 in
 {
   wayland.windowManager.sway = {
@@ -44,7 +45,7 @@ in
       };
       modifier = "Mod4";
       terminal = "${pkgs.kitty}/bin/kitty";
-      menu = "${pkgs.bemenu}/bin/bemenu-run";
+      menu = bemenuCmd;
 
       seat = {
         "*" = {
