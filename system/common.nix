@@ -185,6 +185,7 @@ in
     cups
     libxkbcommon
     libxshmfence
+    libgbm
     mesa
     xorg.libX11
     xorg.libXcomposite
