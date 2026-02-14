@@ -173,6 +173,28 @@ in
     xorg.xcbutilkeysyms
     xorg.xcbutilrenderutil
     pkgs."xcb-util-cursor"
+
+    # Playwright / Chromium runtime libs for non-Nix browser binaries
+    glib
+    gtk3
+    dbus
+    at-spi2-atk
+    atk
+    pango
+    cairo
+    cups
+    libxkbcommon
+    libxshmfence
+    mesa
+    xorg.libX11
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXrandr
+    xorg.libxcb
+    nss
+    nspr
   ];
 
   users.users.rob = {
