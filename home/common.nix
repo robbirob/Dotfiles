@@ -10,6 +10,9 @@
 let
   palette = stylixColors;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  piCodingAgent = pkgs.writeShellScriptBin "pi" ''
+    exec ${pkgs.nodejs}/bin/npx --yes @mariozechner/pi-coding-agent "$@"
+  '';
 in
 {
   imports = [
@@ -41,6 +44,7 @@ in
     wl-clipboard
     brightnessctl
     glow
+    piCodingAgent
   ];
   programs.spicetify = {
     enable = true;
