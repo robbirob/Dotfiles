@@ -45,6 +45,7 @@ in
     brightnessctl
     glow
     kubectl
+    discord
     piCodingAgent
   ];
   programs.spicetify = {
