@@ -1,0 +1,34 @@
+# Dotfiles: track selected config, ignore noisy/private app state.
+
+# Ignore everything under .config by default.
+.config/*
+
+# Keep curated config directories.
+!.config/gtk-3.0/
+!.config/hypr/
+!.config/kitty/
+!.config/systemd/
+!.config/Thunar/
+!.config/xfce4/
+!.config/yay/
+
+# Ignore systemd-generated enablement symlinks; keep real custom unit files.
+.config/systemd/user/*.wants/
+.config/systemd/user/pipewire-session-manager.service
+
+# Never track browser profiles, credentials, cookies, caches, telemetry, or local state.
+.config/mozilla/
+.config/pulse/
+.config/dconf/
+.config/go/
+
+# Common runtime/cache files if they appear in this repo.
+*.log
+*.lock
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.db-shm
+*.db-wal
+.cache/
