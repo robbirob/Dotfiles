@@ -1,0 +1,154 @@
+// Waybar config adapted from the old Nix/Sway setup for the new Hyprland install.
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "spacing": 4,
+
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/submap"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "idle_inhibitor",
+    "custom/media",
+    "temperature",
+    "custom/stralsund-temp",
+    "memory",
+    "network",
+    "pulseaudio",
+    "battery",
+    "clock#local",
+    "tray"
+  ],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "persistent-workspaces": {
+      "*": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    "format": "{icon}",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "",
+      "default": ""
+    }
+  },
+
+  "hyprland/submap": {
+    "format": " {}",
+    "max-length": 20,
+    "tooltip": false
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 80,
+    "separate-outputs": true
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": " ",
+      "deactivated": " "
+    }
+  },
+
+  "custom/media": {
+    "exec": "~/.config/waybar/scripts/media.sh",
+    "interval": 1,
+    "return-type": "json",
+    "format": "{}",
+    "hide-empty-text": true,
+    "tooltip": true,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next"
+  },
+
+  "clock#local": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+
+  "memory": {
+    "format": "  {percentage}%",
+    "states": {
+      "warning": 70,
+      "critical": 85
+    }
+  },
+
+  "temperature": {
+    "format": "  {temperatureC}°",
+    "critical-threshold": 80,
+    "interval": 2
+  },
+
+  "custom/stralsund-temp": {
+    "exec": "~/.config/waybar/scripts/stralsund-weather.sh",
+    "interval": 300,
+    "format": "{}",
+    "return-type": "json",
+    "tooltip": true
+  },
+
+  "network": {
+    "interval": 1,
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": " {ifname}",
+    "tooltip-format": "{essid} {bandwidthTotalBytes} {ifname} via {gwaddr}",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": "Disconnected ⚠ {ifname}",
+    "format-alt": " {ifname}: {ipaddr}/{cidr}"
+  },
+
+  "pulseaudio": {
+    "scroll-step": 2,
+    "format": "{icon}  {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "headphones": "",
+      "handsfree": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", ""]
+    },
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol"
+  },
+
+  "battery": {
+    "interval": 5,
+    "states": {
+      "good": 100,
+      "warning": 50,
+      "critical": 25
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [" ", " ", " ", " ", " "]
+  },
+
+  "tray": {
+    "spacing": 10
+  }
+}

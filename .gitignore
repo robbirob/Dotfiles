@@ -10,6 +10,7 @@ config/*
 !config/systemd/
 !config/Thunar/
 !config/tmux/
+!config/waybar/
 !config/xfce4/
 !config/yay/
 
