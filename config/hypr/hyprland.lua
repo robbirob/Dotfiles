@@ -28,7 +28,7 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal    = "kitty"
+local terminal    = "env LIBGL_ALWAYS_SOFTWARE=1 kitty"
 local fileManager = "thunar"
 local menu        = "wofi --show drun"
 
@@ -120,14 +120,16 @@ hl.config({
         inactive_opacity = 1.0,
 
         shadow = {
-            enabled      = true,
+            enabled      = false,
             range        = 4,
             render_power = 3,
             color        = 0xee1a1a1a,
         },
 
+        -- Keep blur disabled for now; it can cause rendering glitches with
+        -- transparent terminals and some Electron apps.
         blur = {
-            enabled   = true,
+            enabled   = false,
             size      = 3,
             passes    = 1,
             vibrancy  = 0.1696,
@@ -135,7 +137,22 @@ hl.config({
     },
 
     animations = {
-        enabled = true,
+        enabled = false,
+    },
+
+    -- Conservative rendering settings for older Intel iGPUs.
+    render = {
+        direct_scanout = false,
+        use_fp16 = false,
+        new_render_scheduling = false,
+    },
+
+    debug = {
+        damage_tracking = 0,
+    },
+
+    cursor = {
+        no_hardware_cursors = true,
     },
 })
 

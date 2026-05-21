@@ -4,7 +4,9 @@
 config/*
 
 # Keep curated config directories.
+!config/applications/
 !config/gtk-3.0/
+!config/environment.d/
 !config/hypr/
 !config/kitty/
 !config/systemd/
