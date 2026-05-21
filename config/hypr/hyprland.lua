@@ -88,14 +88,15 @@ hl.env("MOZ_ENABLE_WAYLAND", "1")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 20,
+        gaps_in  = 4,
+        gaps_out = 10,
 
         border_size = 2,
 
+        -- Match the Waybar palette.
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            active_border   = { colors = {"rgba(313244ff)", "rgba(45475aff)"}, angle = 45 },
+            inactive_border = "rgba(1e1e2eaa)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -108,7 +109,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 0,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
