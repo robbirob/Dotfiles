@@ -46,9 +46,11 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("waybar")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
-    hl.exec_cmd(terminal, { workspace = "1" })
-    hl.exec_cmd("firefox", { workspace = "2" })
-    hl.exec_cmd("hyprctl dispatch workspace 1")
+    -- Start apps on fixed workspaces without switching focus to them.
+    hl.exec_cmd(terminal, { workspace = "1 silent" })
+    hl.exec_cmd("firefox", { workspace = "2 silent" })
+    -- Firefox can steal focus after mapping; switch back once startup settles.
+    hl.exec_cmd("sh -c 'sleep 2; hyprctl dispatch workspace 1'")
 end)
 
 
