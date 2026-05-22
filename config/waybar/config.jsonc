@@ -48,7 +48,7 @@
   },
 
   "hyprland/submap": {
-    "format": " {}",
+    "format": " {}",
     "max-length": 20,
     "tooltip": false
   },
@@ -110,11 +110,11 @@
   "network": {
     "interval": 1,
     "format-wifi": "  {signalStrength}%",
-    "format-ethernet": " {ifname}",
+    "format-ethernet": " {ifname}",
     "tooltip-format": "{essid} {bandwidthTotalBytes} {ifname} via {gwaddr}",
-    "format-linked": " {ifname} (No IP)",
+    "format-linked": " {ifname} (No IP)",
     "format-disconnected": "Disconnected ⚠ {ifname}",
-    "format-alt": " {ifname}: {ipaddr}/{cidr}"
+    "format-alt": " {ifname}: {ipaddr}/{cidr}"
   },
 
   "pulseaudio": {
@@ -123,8 +123,8 @@
     "format-muted": "",
     "format-icons": {
       "headphones": "",
-      "handsfree": "",
-      "headset": "",
+      "handsfree": "",
+      "headset": "",
       "phone": "",
       "portable": "",
       "car": "",
@@ -142,7 +142,7 @@
       "critical": 25
     },
     "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
+    "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{icon} {time}",
     "format-icons": [" ", " ", " ", " ", " "]
